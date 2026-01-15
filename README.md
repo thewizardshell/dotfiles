@@ -78,7 +78,6 @@ This layout keeps all processes visible while maintaining focus on the code.
 | polybar   | Status bar                                     |
 | rofi      | Application launcher                           |
 | ghostty   | GPU-accelerated terminal                       |
-| git       | Git configuration                              |
 | fzf       | Fuzzy finder integration                       |
 | lazygit   | Terminal UI for git                            |
 | btop      | System monitor                                 |
@@ -147,7 +146,7 @@ Clone and stow all packages:
 ```bash
 git clone git@github.com:thewizardshell/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-stow zsh tmux git fzf nvim i3 polybar rofi ghostty cava btop lazygit neofetch zed
+stow zsh tmux fzf nvim i3 polybar rofi ghostty cava btop lazygit neofetch zed
 ```
 
 ### Selective Installation
@@ -321,7 +320,6 @@ dotfiles/
 ├── cava/           # Audio visualizer config
 ├── fzf/            # Fuzzy finder config
 ├── ghostty/        # Terminal config
-├── git/            # Git config
 ├── i3/             # Window manager config
 ├── lazygit/        # Git TUI config
 ├── neofetch/       # System info config
