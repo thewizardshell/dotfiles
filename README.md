@@ -145,7 +145,7 @@ Install a Nerd Font for icons to display correctly:
 Clone and stow all packages:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
+git clone git@github.com:thewizardshell/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 stow zsh tmux git fzf nvim i3 polybar rofi ghostty cava btop lazygit neofetch zed
 ```
