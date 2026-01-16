@@ -1,7 +1,7 @@
 # Neovim Config
 
 <p align="center">
-  <img src="" alt="Preview" width="800">
+  <img src="https://github.com/user-attachments/assets/0f2834c4-9cd6-4bba-865a-2346835dff6b" alt="Preview" width="800">
 </p>
 
 <p align="center">
@@ -114,3 +114,4 @@ nvim/
 ## License
 
 MIT
+
