@@ -1,0 +1,47 @@
+return {
+  -- "nvim-lualine/lualine.nvim",
+  -- event = "VeryLazy",
+  -- opts = function()
+  --   -- Colores inspirados en el estilo "blocky" de NvChad
+  --   -- (Nota: lualine intentará usar los colores de tu tema actual)
+  --
+  --   return {
+  --     options = {
+  --       theme = "auto",
+  --       component_separators = "", -- Quitamos las líneas divisorias internas
+  --       section_separators = { left = "", right = "" }, -- Bordes redondeados
+  --       disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
+  --     },
+  --     sections = {
+  --       -- Sección izquierda (Modo)
+  --       lualine_a = {
+  --         { "mode", separator = { left = "" }, right_padding = 2 },
+  --       },
+  --       -- Sección B (Git y diagnóstico)
+  --       lualine_b = {
+  --         { "branch", icon = "" },
+  --         { "diff", symbols = { added = " ", modified = " ", removed = " " } },
+  --       },
+  --       -- Sección central (Nombre del archivo)
+  --       lualine_c = {
+  --         { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+  --         { "filename", path = 1, symbols = { modified = "  ", readonly = "  ", unnamed = "  " } },
+  --       },
+  --       -- Sección derecha (LSP y posición)
+  --       lualine_y = {
+  --         { "progress", separator = " ", padding = { left = 1, right = 1 } },
+  --         { "location", padding = { left = 0, right = 1 } },
+  --       },
+  --       lualine_z = {
+  --         {
+  --           function()
+  --             return "  " .. os.date("%R")
+  --           end,
+  --           separator = { right = "" },
+  --           left_padding = 2,
+  --         },
+  --       },
+  --     },
+  --   }
+  -- end,
+}

@@ -1,0 +1,27 @@
+return {
+  -- "neovim/nvim-lspconfig",
+  -- opts = {
+  --   servers = {
+  --     eslint = {
+  --       settings = {
+  --         -- Ayuda a que ESLint no escanee todo el disco
+  --         workingDirectory = { mode = "auto" },
+  --       },
+  --     },
+  --   },
+  --   setup = {
+  --     eslint = function()
+  --       vim.api.nvim_create_autocmd("BufWritePre", {
+  --         callback = function(event)
+  --           -- Verifica si el cliente ESLint está activo para este buffer
+  --           local client = vim.lsp.get_clients({ bufnr = event.buf, name = "eslint" })[1]
+  --           if client then
+  --             vim.cmd("EslintFixAll")
+  --           end
+  --         end,
+  --       })
+  --       return true -- Importante: indica que ya configuraste el servidor manualmente
+  --     end,
+  --   },
+  -- },
+}

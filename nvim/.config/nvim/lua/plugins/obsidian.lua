@@ -1,0 +1,211 @@
+return {
+  "obsidian-nvim/obsidian.nvim",
+  version = "*",
+  lazy = true,
+  ft = "markdown",
+  enable = true,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+  opts = {
+    workspaces = {
+      {
+        name = "Notas",
+        path = "/home/vctroa/dev/obsidian-vault",
+      },
+    },
+
+    notes_subdir = nil,
+
+    daily_notes = {
+      folder = "200 Day Notes",
+      date_format = "%Y-%m-%d",
+      alias_format = "%B %-d, %Y",
+      template = "Day Note Template",
+      default_tags = { "daily" },
+      workdays_only = false,
+    },
+
+    completion = {
+      nvim_cmp = false,
+      blink = true,
+      min_chars = 2,
+      create_new = true,
+    },
+
+    picker = {
+      name = "telescope.nvim",
+    },
+
+    new_notes_location = "100 Notes",
+
+    note_path_func = function(spec)
+      local path = spec.dir / spec.id
+      return path:with_suffix(".md")
+    end,
+
+    disable_frontmatter = true,
+
+    note_id_func = function(title)
+      if title ~= nil then
+        return title
+      else
+        return os.date("%Y-%m-%d-%H%M%S")
+      end
+    end,
+
+    note_frontmatter_func = function(note)
+      return {}
+    end,
+
+    templates = {
+      folder = "700 Templates",
+      date_format = "%Y-%m-%d",
+      time_format = "%H:%M",
+      substitutions = {
+        date = function()
+          return os.date("%Y-%m-%d")
+        end,
+        yesterday = function()
+          return os.date("%Y-%m-%d", os.time() - 86400)
+        end,
+        tomorrow = function()
+          return os.date("%Y-%m-%d", os.time() + 86400)
+        end,
+      },
+    },
+
+    attachments = {
+      img_folder = "attachments",
+    },
+
+    checkbox = {
+      order = { " ", "~", "!", ">", "x" },
+    },
+
+    ui = {
+      enable = true,
+      update_debounce = 400,
+      max_file_length = 1000,
+      ignore_conceal_warn = true,
+
+      checkboxes = {
+        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+        ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+        ["!"] = { char = "", hl_group = "ObsidianImportant" },
+        [">"] = { char = "", hl_group = "ObsidianRightArrow" },
+        ["x"] = { char = "", hl_group = "ObsidianDone" },
+      },
+
+      bullets = { char = "•", hl_group = "ObsidianBullet" },
+      external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+      reference_text = { hl_group = "ObsidianRefText" },
+      highlight_text = { hl_group = "ObsidianHighlightText" },
+      tags = { hl_group = "ObsidianTag" },
+      block_ids = { hl_group = "ObsidianBlockID" },
+
+      hl_groups = {
+        ObsidianTodo = { bold = true, fg = "#f78c6c" },
+        ObsidianDone = { bold = true, fg = "#89ddff" },
+        ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
+        ObsidianTilde = { bold = true, fg = "#ff5370" },
+        ObsidianImportant = { bold = true, fg = "#d73128" },
+        ObsidianBullet = { bold = true, fg = "#89ddff" },
+        ObsidianRefText = { underline = true, fg = "#c792ea" },
+        ObsidianExtLinkIcon = { fg = "#c792ea" },
+        ObsidianTag = { italic = true, fg = "#89ddff" },
+        ObsidianBlockID = { italic = true, fg = "#89ddff" },
+        ObsidianHighlightText = { bg = "#75662e" },
+      },
+    },
+
+    callbacks = {
+      enter_note = function(note)
+        if not note or not note.path then
+          return
+        end
+
+        local note_path_str = tostring(note.path)
+
+        -- Solo configurar textwidth según la carpeta
+        if string.find(note_path_str, "200 Day Notes") then
+          vim.bo.textwidth = 80
+        elseif string.find(note_path_str, "100 Notes") then
+          vim.bo.textwidth = 100
+        end
+
+        -- Solo aplicar template automático a notas en "100 Notes" que estén vacías
+        if string.find(note_path_str, "100 Notes") then
+          if vim.api.nvim_buf_line_count(note.bufnr) <= 1 then
+            local first_line = vim.api.nvim_buf_get_lines(note.bufnr, 0, 1, false)[1] or ""
+            if first_line == "" then
+              local template_content = {
+                "Vinculo: [[]]",
+                "Fecha : " .. os.date("%Y-%m-%d"),
+                "Tema : #",
+                "",
+                "# " .. (note.title or "Nuevo Concepto"),
+                "",
+                "",
+                "",
+                "## Enlaces relacionados",
+                "- [[]]",
+                "",
+                "#",
+              }
+              vim.api.nvim_buf_set_lines(note.bufnr, 0, -1, false, template_content)
+              vim.api.nvim_win_set_cursor(0, { 3, 8 })
+            end
+          end
+        end
+      end,
+    },
+  },
+
+  keys = {
+    { "<leader>oo", "<cmd>Obsidian open<cr>", desc = "Open in Obsidian" },
+    { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New Obsidian note" },
+    { "<leader>os", "<cmd>Obsidian search<cr>", desc = "Search Obsidian notes" },
+    { "<leader>oq", "<cmd>Obsidian quick_switch<cr>", desc = "Quick switch notes" },
+    { "<leader>ot", "<cmd>Obsidian today<cr>", desc = "Today's note" },
+    { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Yesterday's note" },
+    { "<leader>od", "<cmd>Obsidian dailies<cr>", desc = "List daily notes" },
+    { "<leader>og", "<cmd>Obsidian tags<cr>", desc = "Search tags" },
+    { "<leader>ol", "<cmd>Obsidian links<cr>", desc = "List all links" },
+    { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show backlinks" },
+    { "<leader>ow", "<cmd>Obsidian workspace<cr>", desc = "Switch workspace" },
+    { "<leader>of", "<cmd>Obsidian follow_link<cr>", desc = "Follow link" },
+    { "<leader>or", "<cmd>Obsidian rename<cr>", desc = "Rename note" },
+    { "<leader>op", "<cmd>Obsidian paste_img<cr>", desc = "Paste image" },
+    { "<leader>oi", "<cmd>Obsidian template<cr>", desc = "Insert template" },
+
+    {
+      "gf",
+      function()
+        return require("obsidian").util.gf_passthrough()
+      end,
+      ft = "markdown",
+      expr = true,
+      desc = "Obsidian follow link",
+    },
+
+    {
+      "<leader>ch",
+      function()
+        return require("obsidian").util.toggle_checkbox()
+      end,
+      ft = "markdown",
+      desc = "Toggle checkbox",
+    },
+
+    {
+      "<cr>",
+      function()
+        return require("obsidian").util.smart_action()
+      end,
+      ft = "markdown",
+      expr = true,
+      desc = "Obsidian smart action",
+    },
+  },
+}
