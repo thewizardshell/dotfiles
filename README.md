@@ -3,7 +3,7 @@
 Personal configuration files for a minimalist development environment focused on visibility, flexibility, and efficiency.
 
 <p align="center">
-  <img src="screenshots/preview.png" alt="Desktop Preview" width="800">
+  <img src="https://github.com/user-attachments/assets/f1c5c125-4e59-4d80-ae27-ed54390b2ecf" alt="Desktop Preview" width="800">
 </p>
 
 ---
